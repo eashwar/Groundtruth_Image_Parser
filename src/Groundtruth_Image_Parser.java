@@ -8,6 +8,8 @@ import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 import java.io.*;
+import java.util.Arrays;
+
 import javax.imageio.ImageIO;
 
 
@@ -17,7 +19,7 @@ public class Groundtruth_Image_Parser extends Applet implements ActionListener
 	private static final long serialVersionUID = 1L;
 	
 	
-	NetworkTable _bobby;
+//	NetworkTable _bobby;
 	
 	String groundtruth_images;
 	byte[] left_image;
@@ -30,7 +32,7 @@ public class Groundtruth_Image_Parser extends Applet implements ActionListener
 	public void init()
 	{
 		//initialize table
-		_bobby = NetworkTable.getTable("SmartDashboard");
+//		_bobby = NetworkTable.getTable("SmartDashboard");
 		
 		Button b1 = new Button("Get Image");
 		add(b1);
@@ -63,7 +65,9 @@ public class Groundtruth_Image_Parser extends Applet implements ActionListener
  */
 	public void getImageData()
 	{
-		groundtruth_images = _bobby.getString("Groundtruth raw image", "");
+		char[] charArray = new char[648];
+		Arrays.fill(charArray, 'A');
+		groundtruth_images = new String(charArray);//_bobby.getString("Groundtruth raw image", "");
 		
 	}
 	
@@ -107,7 +111,7 @@ public class Groundtruth_Image_Parser extends Applet implements ActionListener
 			InputStream in = new ByteArrayInputStream(image);
 			BufferedImage buffered_img = ImageIO.read(in);
 			buffered_img = scale(buffered_img, BufferedImage.TYPE_INT_ARGB, 90, 90, 5, 5);
-			ImageIO.write(buffered_img, "jpg", new File(getCodeBase().toString() + imagename + Long.toString(System.currentTimeMillis())));
+			ImageIO.write((RenderedImage)buffered_img, "jpg", new File(getCodeBase().toString() + imagename + Long.toString(System.currentTimeMillis())));
 		}
 		catch (IOException e) 
 		{
