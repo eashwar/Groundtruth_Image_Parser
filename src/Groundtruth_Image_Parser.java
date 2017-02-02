@@ -64,7 +64,7 @@ public class Groundtruth_Image_Parser extends Applet implements ActionListener
 	public void splitImage()
 	{
 		char[] testImages = new char[324];
-		Arrays.fill(testImages, (char) 20);
+		Arrays.fill(testImages, (char) 57);
 		left_image_raw = testImages;//groundtruth_images.substring(0, 323).toCharArray();
 		right_image_raw = testImages;//groundtruth_images.substring(324, 647).toCharArray();
 	}
@@ -119,6 +119,7 @@ public class Groundtruth_Image_Parser extends Applet implements ActionListener
 				for (int x = 0; x < 18; x++)
 				{
 					g.setColor(new Color(left_image_pixels[l_counter], left_image_pixels[l_counter], left_image_pixels[l_counter]));
+//					System.out.println(left_image_pixels[l_counter]);
 					l_counter++;
 					g.fillRect(30 + (x * pixel_size), 50 + (y * pixel_size), pixel_size, pixel_size);
 				}
