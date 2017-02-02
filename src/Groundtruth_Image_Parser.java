@@ -41,9 +41,7 @@ public class Groundtruth_Image_Parser extends Applet implements ActionListener
 	{
 		getImageData();
 		splitImage();
-//		left_image_raw = reorderImage(left_image_raw);
 		left_image_pixels = charArrayToIntensity(left_image_raw);
-//		right_image_raw = reorderImage(right_image_raw);
 		right_image_pixels = charArrayToIntensity(right_image_raw);
 		repaint();
 	}
@@ -64,30 +62,11 @@ public class Groundtruth_Image_Parser extends Applet implements ActionListener
 	public void splitImage()
 	{
 		char[] testImages = new char[324];
-		Arrays.fill(testImages, (char) 57);
-		left_image_raw = testImages;//groundtruth_images.substring(0, 323).toCharArray();
-		right_image_raw = testImages;//groundtruth_images.substring(324, 647).toCharArray();
+		Arrays.fill(testImages, (char) 32);
+		left_image_raw = /*groundtruth_images.substring(0, 323).toCharArray();*/testImages;
+		right_image_raw = /*groundtruth_images.substring(324, 647).toCharArray();*/testImages;
 	}
 	
-/**
- * Takes the raw image data, as an array of bytes, and reorders the bytes into the order they will be converted - left to right.
- * @param raw_image: the image to be reordered
- * @return
- */
-	public char[] reorderImage(char[] raw_image)
-	{				
-		char[] ordered_image = new char[324];
-		int counter = 0;
-		for (int i = 17; i < 0; i--)
-		{
-			for (int j = 0; j > 17; j++)
-			{
-				ordered_image[counter] = raw_image[i + (j * 18)];
-				counter++;
-			}
-		}
-		return ordered_image;
-	}
 
 	
 	public int[] charArrayToIntensity(char[] data)
@@ -99,7 +78,6 @@ public class Groundtruth_Image_Parser extends Applet implements ActionListener
 			char pixel = data[i];
 			pixel = (char) (pixel & 63);
 			rgbdata[i] = ((int) pixel) * 255 / 63;
-
 		}
 		
 		return rgbdata;
@@ -114,14 +92,13 @@ public class Groundtruth_Image_Parser extends Applet implements ActionListener
 		if (left_image_pixels != null)
 		{
 			int l_counter = 0;
-			for (int y = 0; y< 18; y++)
+			for (int x = 0; x < 18; x++)
 			{
-				for (int x = 0; x < 18; x++)
+				for (int y = 0; y < 18; y++)
 				{
 					g.setColor(new Color(left_image_pixels[l_counter], left_image_pixels[l_counter], left_image_pixels[l_counter]));
-//					System.out.println(left_image_pixels[l_counter]);
 					l_counter++;
-					g.fillRect(30 + (x * pixel_size), 50 + (y * pixel_size), pixel_size, pixel_size);
+					g.fillRect(30 + (x * pixel_size), 320 - (y * pixel_size), pixel_size, pixel_size);
 				}
 	
 			}
@@ -129,13 +106,13 @@ public class Groundtruth_Image_Parser extends Applet implements ActionListener
 		if (right_image_pixels != null)
 		{
 			int r_counter = 0;
-			for (int y = 0; y< 18; y++)
+			for (int x = 0; x < 18; x++)
 			{
-				for (int x = 0; x < 18; x++)
+				for (int y = 0; y < 18; y++)
 				{
 					g.setColor(new Color(right_image_pixels[r_counter], right_image_pixels[r_counter], right_image_pixels[r_counter]));
 					r_counter++;
-					g.fillRect(350 + (x * pixel_size), 50 + (y * pixel_size), pixel_size, pixel_size);
+					g.fillRect(350 + (x * pixel_size), 320 - (y * pixel_size), pixel_size, pixel_size);
 				}
 	
 			}
